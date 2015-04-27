@@ -1,0 +1,1 @@
+<div class="footer"><?php echo $site_title; ?> &copy; <?php echo date('Y');?></div>

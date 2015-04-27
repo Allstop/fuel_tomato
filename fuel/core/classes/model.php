@@ -12,7 +12,7 @@
 
 namespace Fuel\Core;
 
-class Model
+abstract class Model
 {
 
 }

@@ -123,6 +123,7 @@ $(document).on("click",".go",function(){
 var sessionCheck = function() {
 
     $.ajax({
+        //url: BASE_URL +"/mainController/index",
         url: BASE_URL + "/sessionCheck",
         type: "POST",
         dataType: "JSON",

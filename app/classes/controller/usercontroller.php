@@ -1,13 +1,10 @@
 <?php
-namespace Mvc\Controller;
 
+//use fuel\core\IUserData;
+use app\classes\model\Model_mainModel;
+use fuel\core\Controller;
 
-use Mvc\Core\IUserData;
-use Mvc\Model\UserModel;
-use Mvc\View\View;
-use Mvc\Sys\Controller;
-
-class UserController extends Controller
+class Controller_userController extends \Controller
 {
     // 共用的物件
     private $Model = NULL;
@@ -17,7 +14,7 @@ class UserController extends Controller
     {
         Controller::init();
         //$this->Model = IUserData::getMain();
-        $this->Model = new UserModel();
+        $this->Model = new Model_mainModel();
         $this->gtPost = self::$app->getPost();
     }
     //登出

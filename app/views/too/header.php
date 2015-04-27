@@ -1,0 +1,1 @@
+<h1><div class="title"><?php echo $site_title; ?></div></h1>

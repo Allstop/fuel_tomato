@@ -1,8 +1,12 @@
 <?php
 
-namespace Mvc\Model;
+namespace app\classes\model;
 
-class MainModel implements \Mvc\Interfaces\IMain
+
+use Fuel\Core\Interfaces\IMain;
+use Fuel\Core\Model;
+
+class Model_mainModel extends Model implements IMain
 {
 
     private static $db = null;
@@ -14,13 +18,13 @@ class MainModel implements \Mvc\Interfaces\IMain
         try {
             self::$db = array();
             if (! $path) {
-                $path = dirname(dirname(dirname(__DIR__))).'/config';
+                $path = dirname(dirname(__DIR__)).'/config';
             }
             if (! $filename) {
-                $filename = 'config.php';
+                $filename = 'db.php';
             }
             self::$db = require(implode('/', array($path, $filename)));
-            self::$db = new \PDO(self::$db['db']['dsn'], self::$db['db']['user'], self::$db['db']['pwd']);
+            self::$db = new \PDO(self::$db['dsn'], self::$db['user'], self::$db['pwd']);
             self::$db->query('set character set utf8');
             $this->status = true;
         } catch (PDOException $e) {
@@ -29,7 +33,7 @@ class MainModel implements \Mvc\Interfaces\IMain
         }
     }
     //*檢查session資料是否已存在
-    public function sessionCheck($name)
+    public function action_sessionCheck($name)
     {
         if ($name == true) {
             return $name;
@@ -38,7 +42,7 @@ class MainModel implements \Mvc\Interfaces\IMain
         }
     }
     //*建立清單
-    public function createRecord($gtlPost)
+    public function action_createRecord($gtlPost)
     {
         if ($this->status !== true) {
             return 'error in create!';
@@ -71,7 +75,7 @@ class MainModel implements \Mvc\Interfaces\IMain
         }
     }
     //*工作清單
-    public function listRecord($name)
+    public function action_listRecord($name)
     {
         if ($this->status !== true) {
             return 'error';

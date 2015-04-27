@@ -2,7 +2,10 @@
 
 namespace Mvc\Model;
 
-class UserModel implements \Mvc\Interfaces\IUser
+use Fuel\Core\Interfaces\IUser;
+use Fuel\Core\Model;
+
+class Model_userModel extends Model implements IUser
 {
 
     private static $db = null;
@@ -20,7 +23,7 @@ class UserModel implements \Mvc\Interfaces\IUser
                 $filename = 'config.php';
             }
             self::$db = require(implode('/', array($path, $filename)));
-            self::$db = new \PDO(self::$db['db']['dsn'], self::$db['db']['user'], self::$db['db']['pwd']);
+            self::$db = new \PDO(self::$db['dsn'], self::$db['user'], self::$db['pwd']);
             self::$db->query('set character set utf8');
             $this->status = true;
         } catch (PDOException $e) {
@@ -29,7 +32,7 @@ class UserModel implements \Mvc\Interfaces\IUser
         }
     }
     //*檢查登入資料是否已存在
-    public function loginCheck($gtPost)
+    public function action_loginCheck($gtPost)
     {
         $sql = self::$db->prepare("SELECT name FROM user
         where name='".$gtPost['name']."' and password='".$gtPost['password']."' "
@@ -42,7 +45,7 @@ class UserModel implements \Mvc\Interfaces\IUser
         }
     }
     //*建立使用者
-    public function create($gtPost)
+    public function action_create($gtPost)
     {
         if ($this->status !== true) {
             return 'error in create!';
@@ -62,7 +65,7 @@ class UserModel implements \Mvc\Interfaces\IUser
         }
     }
     //*檢查建立資料是否已存在
-    public function createCheck($name)
+    public function action_createCheck($name)
     {
         $sql = self::$db->query(
             "SELECT name FROM user
